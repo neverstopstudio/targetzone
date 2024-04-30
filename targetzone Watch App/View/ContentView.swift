@@ -12,16 +12,22 @@ struct ContentView: View {
     @State private var selectedTab = 0
     @AppStorage("targetZone") var targetZone: Double = -1.0
     @State private var previousZones: [Double] = []
+    @State private var hasLoadedFromStorage = false
+    
+    func addZoneIfNotExists(targetZone: Double) {
+        if !previousZones.contains(targetZone) && targetZone > 0 {
+            previousZones.append(targetZone)
+            if previousZones.count > 5 {
+                previousZones.removeFirst()
+            }
+        }
+    }
+
     
     // Function to set both target zone and previous zone
     func setZone(newZone: Double) {
-        if previousZones.contains(targetZone) == false && targetZone > 0 {
-            previousZones.append(targetZone)
-            if previousZones.count == 6 {
-                previousZones.removeFirst();
-            }
-        }
         targetZone = newZone
+        addZoneIfNotExists(targetZone: targetZone)
         print(newZone)
     }
     
@@ -55,6 +61,13 @@ struct ContentView: View {
                     }
                     
                 }
+            }
+        }
+        .onAppear {
+            if !hasLoadedFromStorage && targetZone > 0 {
+                // Populate previousZones with the initial targetZone
+                addZoneIfNotExists(targetZone: targetZone)
+                hasLoadedFromStorage = true
             }
         }
     }

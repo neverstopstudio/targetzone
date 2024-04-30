@@ -18,7 +18,7 @@ struct TargetZoneView: View {
                 .font(.system(size: 20, weight: .bold))
                 .padding()
             
-            Text("\(String(format: "%.0f", targetZone))")
+            Text("\(String(format: "%.1f", targetZone))")
                 .font(.system(size: 60, weight: .bold))
                 .padding()
             let currentZone = self.workoutManager.zone
@@ -26,7 +26,7 @@ struct TargetZoneView: View {
                 .font(.system(size: 18, weight: .bold))
                 .onAppear {
                     if self.targetZone == self.workoutManager.zone {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             FeedbackManager.shared.achieveTargetZone()
                         }
                     }
@@ -36,7 +36,7 @@ struct TargetZoneView: View {
                 Text("GO FASTER!")
                     .font(.system(size: 18, weight: .bold))
                     .onAppear {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             FeedbackManager.shared.runningTooSlow()
                         }
                     }
@@ -46,7 +46,7 @@ struct TargetZoneView: View {
                 Text("GO SLOWER!")
                     .font(.system(size: 18, weight: .bold))
                     .onAppear {
-                        DispatchQueue.main.async {
+                        DispatchQueue.global().async {
                             FeedbackManager.shared.runningTooFast()
                         }
                     }

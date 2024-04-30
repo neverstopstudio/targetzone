@@ -19,7 +19,7 @@ struct PreviousZoneView: View {
                 .font(.system(size: 20, weight: .bold))
             
             Picker("", selection: $selectedZone) {
-                Text(String(format: "%.0f", previousZone))
+                Text(String(format: "%.1f", previousZone))
                     .font(.system(size: 60, weight: .bold))
                 
             }

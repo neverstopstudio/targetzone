@@ -11,7 +11,7 @@ struct ConfigZoneView: View {
     @Binding var selectedTab: Int
     @Binding var targetZone: Double
     @State var selectedZone: Double = 0.0
-    let zoneOptions: [Double] = Array(stride(from: 1.0, through: 5.0, by: 1))
+    let zoneOptions: [Double] = Array(stride(from: 1.0, through: 5.0, by: 0.1))
     let setZone: (Double) -> Void
     
     var body: some View {
@@ -21,7 +21,7 @@ struct ConfigZoneView: View {
             
             Picker("", selection: $selectedZone) {
                 ForEach(zoneOptions, id: \.self) { zone in
-                    Text(String(format: "%.0f", zone))
+                    Text(String(format: "%.1f", zone))
                         .font(.system(size: zone == self.selectedZone ? 60: 20, weight: .bold))
                 }
             }
